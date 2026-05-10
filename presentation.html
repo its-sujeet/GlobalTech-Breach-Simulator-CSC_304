@@ -74,7 +74,16 @@ const query = `SELECT * FROM users
                WHERE username = '${username}' 
                AND password = '${password}'`;
                         </code></pre>
-                        <p style="font-size: 0.8em;">By injecting <code>' OR 1=1 --</code> in the username, the query becomes always true, bypassing authentication.</p>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 80%;">
+                            <p><strong>How it works:</strong></p>
+                            <ul>
+                                <li>The attacker enters <code>' OR 1=1 --</code> as the username.</li>
+                                <li>The single quote <code>'</code> closes the username string prematurely.</li>
+                                <li><code>OR 1=1</code> adds a condition that is always true.</li>
+                                <li><code>--</code> comments out the rest of the query (ignoring the password check).</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>Resulting Query:</strong> <code>SELECT * FROM users WHERE username = '' OR 1=1</code></p>
+                        </div>
                     </section>
 
                     <section>
@@ -86,26 +95,34 @@ const query = `UPDATE users
                    email = '${email}' 
                WHERE username = '${username}'`;
                         </code></pre>
-                        <p style="font-size: 0.8em;">An attacker can inject <code>hacker', role='admin</code> into the display name to elevate their privileges.</p>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 80%;">
+                            <p><strong>How it works:</strong></p>
+                            <ul>
+                                <li>The application expects a normal display name.</li>
+                                <li>Attacker enters: <code>hacker', role='admin</code></li>
+                                <li>The comma allows updating multiple columns in SQL.</li>
+                                <li>This tricks the database into updating the <code>role</code> field to 'admin' for that user.</li>
+                            </ul>
+                        </div>
                     </section>
                 </section>
 
-                <!-- Slide 5 -->
                 <section>
                     <h2>The Attack: Data Exfiltration</h2>
                     <p>Target: <code>/api/search</code></p>
                     <pre><code data-trim data-noescape class="language-javascript">
-// The Vulnerable Code
 const query = `SELECT id, username, role, email 
                FROM users 
                WHERE username LIKE '%${searchTerm}%'`;
                     </code></pre>
-                    <div class="fragment">
-                        <p>The Exploit Payload:</p>
-                        <pre><code data-trim data-noescape class="language-sql">
-x' UNION SELECT id, user_id, secret_data, 'EXFILTRATED' 
-   FROM secret_vault --
-                        </code></pre>
+                    <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 80%;">
+                        <p><strong>UNION-Based Injection Mechanics:</strong></p>
+                        <ul>
+                            <li>The <code>UNION</code> operator combines results of two separate SELECT statements.</li>
+                            <li><strong>Condition:</strong> Both queries must have the exact same number of columns (4 columns in this case).</li>
+                            <li><strong>Payload:</strong> <code>x' UNION SELECT id, user_id, secret_data, 'EXFIL' FROM secret_vault --</code></li>
+                            <li>The app displays the search results, but now it also displays the rows from the hidden <code>secret_vault</code> table!</li>
+                        </ul>
                     </div>
                 </section>
 
@@ -113,7 +130,7 @@ x' UNION SELECT id, user_id, secret_data, 'EXFILTRATED'
                 <section>
                     <h2>The Impact</h2>
                     <p style="font-size: 0.8em;">By executing the automated <code>exploit.py</code> script, we successfully dumped the hidden <code>secret_vault</code> table.</p>
-                    <pre><code data-trim data-noescape class="language-text" style="font-size: 0.7em; line-height: 1.2;">
+                    <pre><code data-trim data-noescape class="language-text" style="font-size: 0.6em; line-height: 1.2;">
 Vault ID | Owner ID | Secret Data
 ------------------------------------------------------------------
 1        | 1        | Corporate Strategy 2026: Expansion into Moon
@@ -121,6 +138,9 @@ Vault ID | Owner ID | Secret Data
 3        | 8        | Batmobile Bluetooth PIN: 0000
 4        | 8        | Waynetech Prototype Key: WY-882-X9
 5        | 7        | Mainframe Backdoor Pass: hacktheplanet
+6        | 5        | Employee Disciplinary Record: Michael Scott (Inappropriate behavior)
+7        | 2        | Internal API Key: sk_live_51M3f...2z8
+8        | 4        | Personal PIN: 4321
 ------------------------------------------------------------------
 [*] Total secrets exfiltrated: 8
                     </code></pre>
