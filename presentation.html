@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>GlobalTech Breach Simulator</title>
+
+		<!-- Reveal.js Core CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+		
+		<!-- Theme: Night (dark, sleek) -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/night.min.css" id="theme">
+
+		<!-- Syntax highlighting for code blocks -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/monokai.min.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <!-- Slide 1 -->
+				<section>
+                    <h2>GlobalTech Solutions</h2>
+                    <h3 style="color: #4ade80;">Vulnerability Assessment</h3>
+                    <p>
+                        <small>SQL Injection Lab & Data Exfiltration</small>
+                    </p>
+                </section>
+
+                <!-- Slide 2 -->
+				<section>
+                    <h2>Project Objective</h2>
+                    <ul style="line-height: 1.8;">
+                        <li class="fragment">Investigate a suspect database-backed web application.</li>
+                        <li class="fragment">Identify SQL Injection (SQLi) vulnerabilities.</li>
+                        <li class="fragment">Extract sample sensitive data to demonstrate business impact.</li>
+                    </ul>
+                </section>
+
+                <!-- Slide 3 -->
+                <section>
+                    <h2>The Target Application</h2>
+                    <p style="color: #94a3b8;"><strong>GlobalTech Corporate Portal</strong></p>
+                    <ul style="line-height: 1.8;">
+                        <li>A custom Node.js/Express web application.</li>
+                        <li>Uses an in-memory SQLite database.</li>
+                        <li>Contains a built-in <strong>"Researcher Toolbox"</strong> for real-time query visualization.</li>
+                    </ul>
+                </section>
+
+                <!-- Slide 4 -->
+                <section>
+                    <section>
+                        <h2>Vulnerability Discovery</h2>
+                        <p>We identified 5 critical SQL Injection endpoints:</p>
+                        <ul style="font-size: 0.9em; line-height: 1.6;">
+                            <li class="fragment"><code>/api/login</code> <span style="color: #f43f5e;">(Authentication Bypass)</span></li>
+                            <li class="fragment"><code>/api/search</code> <span style="color: #f43f5e;">(Data Exfiltration / UNION)</span></li>
+                            <li class="fragment"><code>/api/profile/update</code> <span style="color: #f43f5e;">(Privilege Escalation)</span></li>
+                            <li class="fragment"><code>/api/register</code> <span style="color: #f43f5e;">(Unrestricted Account Creation)</span></li>
+                            <li class="fragment"><code>/api/blind-check</code> <span style="color: #f43f5e;">(Blind Inference)</span></li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Slide 5 -->
+                <section>
+                    <h2>The Attack: Data Exfiltration</h2>
+                    <p>Target: <code>/api/search</code></p>
+                    <pre><code data-trim data-noescape class="language-javascript">
+// The Vulnerable Code
+const query = `SELECT id, username, role, email FROM users 
+               WHERE username LIKE '%${searchTerm}%'`;
+                    </code></pre>
+                    <div class="fragment">
+                        <p>The Exploit Payload:</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+x' UNION SELECT id, user_id, secret_data, 'EXFILTRATED' 
+   FROM secret_vault --
+                        </code></pre>
+                    </div>
+                </section>
+
+                <!-- Slide 6 -->
+                <section>
+                    <h2>The Impact</h2>
+                    <p style="font-size: 0.8em;">By executing the automated <code>exploit.py</code> script, we successfully dumped the hidden <code>secret_vault</code> table.</p>
+                    <pre><code data-trim data-noescape class="language-text" style="font-size: 0.7em; line-height: 1.2;">
+Vault ID | Owner ID | Secret Data
+------------------------------------------------------------------
+1        | 1        | Corporate Strategy 2026: Expansion into Moon
+2        | 1        | Admin Bank Token: 9988-7766-5544-3322
+3        | 8        | Batmobile Bluetooth PIN: 0000
+4        | 8        | Waynetech Prototype Key: WY-882-X9
+5        | 7        | Mainframe Backdoor Pass: hacktheplanet
+------------------------------------------------------------------
+[*] Total secrets exfiltrated: 8
+                    </code></pre>
+                </section>
+
+                <!-- Slide 7 -->
+                <section>
+                    <h2>Remediation</h2>
+                    <p style="font-size: 0.8em;">To prevent SQL Injection, the application must use <strong>Parameterized Queries</strong>.</p>
+                    <pre><code data-trim data-noescape class="language-javascript">
+// Secure Implementation
+const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+db.get(query, [username, password], (err, row) => { ... });
+                    </code></pre>
+                    <p class="fragment" style="color: #4ade80; font-size: 0.7em;">
+                        * This fix has been implemented and can be activated via the "Parameterized Shield" toggle in the lab.
+                    </p>
+                </section>
+
+                <!-- Slide 8 -->
+                <section>
+                    <h2>Conclusion</h2>
+                    <ul style="line-height: 1.8;">
+                        <li>SQL Injection remains a critical threat.</li>
+                        <li>Unsanitized input can lead to total database compromise.</li>
+                        <li>Always use Parameterized Queries!</li>
+                    </ul>
+                    <h3 style="margin-top: 40px; color: #38bdf8;">Questions?</h3>
+                </section>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealHighlight ]
+			});
+		</script>
+	</body>
+</html>
