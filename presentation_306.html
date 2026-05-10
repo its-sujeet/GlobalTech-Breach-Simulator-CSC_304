@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CSC306: Android Reverse Engineering</title>
+    <meta name="description" content="Android Reverse Engineering & Code Analysis">
+    <meta name="author" content="Sujeet Kumar">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/night.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { color: #00ffc4; text-shadow: 0 0 10px rgba(0,255,196,0.5); }
+        .reveal pre { box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .highlight-yellow { color: #ffee55; }
+        .highlight-red { color: #ff5555; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1 -->
+            <section>
+                <h1>CSC306</h1>
+                <h3>Android Reverse Engineering & Code Analysis</h3>
+                <p>Auditor: <span class="highlight-yellow">Sujeet Kumar</span> (Roll No: 16)</p>
+            </section>
+
+            <!-- Slide 2 -->
+            <section>
+                <h2>Objective</h2>
+                <p>To understand application logic and identify security vulnerabilities in an Android APK file using reverse engineering techniques.</p>
+            </section>
+
+            <!-- Slide 3 -->
+            <section>
+                <h2>The Process</h2>
+                <ol>
+                    <li><strong>Source Code:</strong> Written with intentional vulnerabilities.</li>
+                    <li><strong>Build:</strong> Compiled into an APK (Dalvik Executable).</li>
+                    <li><strong>Decompile:</strong> Used <span class="highlight-yellow">JADX</span> to recover Java source from the APK.</li>
+                </ol>
+            </section>
+
+            <!-- Slide 4 -->
+            <section>
+                <section>
+                    <h2>Finding 1: Hardcoded API Key</h2>
+                    <p>A sensitive Google API key was found stored in plain text in the source code.</p>
+                    <pre><code class="language-java" data-trim data-noescape>
+// Found in MainActivity.java
+private static final String API_KEY = "AIzaSyD-7Xj2J8K9L0M1N2O3P4Q5R6S7T8U9V0";
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Risk & Remediation</h3>
+                    <p><span class="highlight-red">Risk:</span> High. Attackers can steal the key and abuse the API quota.</p>
+                    <p><strong>Remediation:</strong> Move keys to a secure backend or use Android Keystore.</p>
+                </section>
+            </section>
+
+            <!-- Slide 5 -->
+            <section>
+                <section>
+                    <h2>Finding 2: Active Debug Flag</h2>
+                    <p>The app was compiled with the debug flag set to true, enabling verbose logging.</p>
+                    <pre><code class="language-java" data-trim data-noescape>
+// Found in MainActivity.java
+private static final boolean DEBUG_MODE = true;
+
+if (DEBUG_MODE) {
+    Log.d("DEBUG_LOG", "Initializing with API Key: " + API_KEY);
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Risk & Remediation</h3>
+                    <p><span class="highlight-red">Risk:</span> Medium. Exposes sensitive data in system logs (logcat).</p>
+                    <p><strong>Remediation:</strong> Disable debugging in production builds using ProGuard/R8.</p>
+                </section>
+            </section>
+
+            <!-- Slide 6 -->
+            <section>
+                <section>
+                    <h2>Finding 3: Hidden Endpoint</h2>
+                    <p>A hidden administrative endpoint was discovered in the decompiled code.</p>
+                    <pre><code class="language-java" data-trim data-noescape>
+// Found in MainActivity.java
+private static final String HIDDEN_ADMIN_ENDPOINT = 
+    "https://api.vulnerableapp.com/v1/internal/debug/grant_admin_access";
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Risk & Remediation</h3>
+                    <p><span class="highlight-red">Risk:</span> Critical. Allows unauthorized access to admin functions.</p>
+                    <p><strong>Remediation:</strong> Remove debug endpoints from production code completely.</p>
+                </section>
+            </section>
+
+            <!-- Slide 7 -->
+            <section>
+                <h2>Conclusion</h2>
+                <p>Reverse engineering is a powerful technique to audit app security.</p>
+                <p>Obfuscation and proper secret management are essential to protect Android applications.</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            plugins: [ RevealHighlight ],
+            slideNumber: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>

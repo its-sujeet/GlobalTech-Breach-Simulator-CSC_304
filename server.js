@@ -25,6 +25,10 @@ app.get('/presentation_401.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'presentation_401.html'));
 });
 
+app.get('/presentation_306.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'presentation_306.html'));
+});
+
 // Lab State
 let securityEnabled = false;
 
