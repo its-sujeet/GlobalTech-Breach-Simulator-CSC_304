@@ -1,0 +1,13 @@
+{
+  "name": "sqli-lab",
+  "version": "1.0.0",
+  "description": "Educational SQL Injection Laboratory",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
