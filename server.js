@@ -17,6 +17,10 @@ app.get('/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'style.css'));
 });
 
+app.get('/presentation.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'presentation.html'));
+});
+
 // Lab State
 let securityEnabled = false;
 
