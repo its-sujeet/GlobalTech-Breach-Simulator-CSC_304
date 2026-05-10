@@ -71,7 +71,8 @@
                         <p>Endpoint: <code>/api/login</code></p>
                         <pre><code data-trim data-noescape class="language-javascript">
 const query = `SELECT * FROM users 
-               WHERE username = '${username}' AND password = '${password}'`;
+               WHERE username = '${username}' 
+               AND password = '${password}'`;
                         </code></pre>
                         <p style="font-size: 0.8em;">By injecting <code>' OR 1=1 --</code> in the username, the query becomes always true, bypassing authentication.</p>
                     </section>
