@@ -115,13 +115,18 @@ const query = `SELECT id, username, role, email
                FROM users 
                WHERE username LIKE '%${searchTerm}%'`;
                     </code></pre>
-                    <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 80%;">
-                        <p><strong>UNION-Based Injection Mechanics:</strong></p>
+                    <p style="font-size: 0.8em;">The application directly interpolates the user input into the SQL query without sanitization.</p>
+                </section>
+
+                <section>
+                    <h2>UNION Mechanics</h2>
+                    <div style="font-size: 0.7em; text-align: left; margin: 0 auto; width: 85%;">
+                        <p>How the UNION operator works in SQLi:</p>
                         <ul>
-                            <li>The <code>UNION</code> operator combines results of two separate SELECT statements.</li>
-                            <li><strong>Condition:</strong> Both queries must have the exact same number of columns (4 columns in this case).</li>
+                            <li>Combines results of two separate SELECT statements into one table.</li>
+                            <li><strong>Condition:</strong> Both queries must have the exact same number of columns (4 columns here).</li>
                             <li><strong>Payload:</strong> <code>x' UNION SELECT id, user_id, secret_data, 'EXFIL' FROM secret_vault --</code></li>
-                            <li>The app displays the search results, but now it also displays the rows from the hidden <code>secret_vault</code> table!</li>
+                            <li>This forces the app to display the <code>secret_vault</code> table rows alongside normal search results!</li>
                         </ul>
                     </div>
                 </section>
