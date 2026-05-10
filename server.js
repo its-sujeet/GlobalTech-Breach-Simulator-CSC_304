@@ -158,6 +158,12 @@ app.post('/api/register', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Advanced Lab Server running at http://localhost:${PORT}`);
-});
+// Export the app for Vercel Serverless Functions
+module.exports = app;
+
+// Only start the server locally if not imported as a module (e.g. by Vercel)
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Advanced Lab Server running at http://localhost:${PORT}`);
+    });
+}
