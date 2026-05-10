@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>CSC401: Database Log Analysis</title>
+
+		<!-- Reveal.js Core CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+		
+		<!-- Theme: Night (dark, sleek) -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/night.min.css" id="theme">
+
+		<!-- Syntax highlighting for code blocks -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/monokai.min.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <!-- Slide 1 -->
+				<section>
+                    <h2>CSC401: Database Log Analysis</h2>
+                    <h3 style="color: #4ade80;">Security Audit Report</h3>
+                    <div style="margin-top: 50px; font-size: 0.8em;">
+                        <p><strong>Presented by:</strong> Sujeet Kumar</p>
+                        <p><strong>Roll No:</strong> 16 | <strong>Section:</strong> 423CS</p>
+                        <p><strong>Reg Number:</strong> 12303890</p>
+                    </div>
+                </section>
+
+                <!-- Slide 2 -->
+				<section>
+                    <h2>The Mission</h2>
+                    <p style="color: #94a3b8;">"Unauthorized database queries have been detected. You must analyze database logs to identify suspicious access and potential data breaches."</p>
+                    <ul style="line-height: 1.8; font-size: 0.8em; margin-top: 20px;">
+                        <li class="fragment">Analyze 1500+ database access logs.</li>
+                        <li class="fragment">Identify suspicious access patterns.</li>
+                        <li class="fragment">Report on potential data breaches.</li>
+                    </ul>
+                </section>
+
+                <!-- Slide 3 -->
+                <section>
+                    <h2>The Method</h2>
+                    <p>We built a Python-based Log Analyzer that scans for:</p>
+                    <ul style="line-height: 1.6; font-size: 0.8em;">
+                        <li><strong>External Access:</strong> IPs outside the trusted range.</li>
+                        <li><strong>SQL Injection Signatures:</strong> <code>UNION</code>, <code>OR '1'='1'</code>, <code>SLEEP()</code>.</li>
+                        <li><strong>Access Control Violations:</strong> Guests accessing sensitive tables.</li>
+                        <li><strong>Privilege Escalation:</strong> Unauthorized <code>UPDATE</code> queries.</li>
+                    </ul>
+                </section>
+
+                <!-- Slide 4 -->
+                <section>
+                    <h2>Findings Overview</h2>
+                    <p style="color: #f43f5e; font-weight: bold;">6 Critical Security Events Identified</p>
+                    <p style="font-size: 0.8em;">All attacks originated from the same external IP: <code>203.0.113.5</code></p>
+                    <ul style="font-size: 0.7em; line-height: 1.6;">
+                        <li class="fragment"><strong>UNION SQL Injection</strong> (Data Exfiltration)</li>
+                        <li class="fragment"><strong>Auth Bypass SQLi</strong> (Login Bypass)</li>
+                        <li class="fragment"><strong>Blind SQL Injection</strong> (Reconnaissance)</li>
+                        <li class="fragment"><strong>Privilege Escalation</strong> (Role modification)</li>
+                        <li class="fragment"><strong>Unauthorized Access</strong> (Financial records probed)</li>
+                        <li class="fragment"><strong>Mass Data Deletion</strong> (Orders table cleared)</li>
+                    </ul>
+                    <p style="font-size: 0.5em; color: #64748b; margin-top: 10px;">↓ Scroll down for deep dives on each attack ↓</p>
+                </section>
+
+                <!-- Slide 5: Data Exfiltration & Auth Bypass -->
+                <section>
+                    <section>
+                        <h2>Deep Dive 1: Data Exfiltration</h2>
+                        <p style="font-size: 0.8em;">The attacker used a UNION operation to steal user credentials.</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+SELECT * FROM products WHERE id = 42 
+UNION 
+SELECT username, password, email, role FROM users --;
+                        </code></pre>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 85%;">
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>The attacker combined product results with user data.</li>
+                                <li>The double dash <code>--</code> comments out the rest of the query.</li>
+                                <li><strong>Result:</strong> Passwords and emails leaked in search results.</li>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                    <section>
+                        <h2>Deep Dive 2: Auth Bypass</h2>
+                        <p style="font-size: 0.8em;">The attacker bypassed the login screen using a tautology.</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+SELECT * FROM users 
+WHERE username = 'admin' OR '1'='1' 
+AND password = '';
+                        </code></pre>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 85%;">
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>The condition <code>'1'='1'</code> is always true.</li>
+                                <li>This forces the database to return the admin record regardless of the password.</li>
+                                <li><strong>Result:</strong> Attacker gains full administrative access.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Slide 6: Privilege Escalation & Blind SQLi -->
+                <section>
+                    <section>
+                        <h2>Deep Dive 3: Privilege Escalation</h2>
+                        <p style="font-size: 0.8em;">Attempt to grant admin rights to a web user account.</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+UPDATE users 
+SET role = 'admin' 
+WHERE username = 'web_app_user';
+                        </code></pre>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 85%;">
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>This query was executed by `web_app_user` itself.</li>
+                                <li>Normal users should not have permission to run UPDATE on the users table.</li>
+                                <li><strong>Result:</strong> Escalation of privileges if not blocked.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Deep Dive 4: Blind SQLi</h2>
+                        <p style="font-size: 0.8em;">The attacker used the SLEEP function to infer vulnerability.</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+SELECT * FROM products WHERE id = 1 
+AND (SELECT 1 FROM (SELECT(SLEEP(5)))x);
+                        </code></pre>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 85%;">
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>The <code>SLEEP(5)</code> function pauses the database for 5 seconds.</li>
+                                <li>By measuring the response time, the attacker confirms the injection point works.</li>
+                                <li><strong>Result:</strong> Confirms vulnerability for further extraction.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Slide 7: Unauthorized Access & Deletion -->
+                <section>
+                    <section>
+                        <h2>Deep Dive 5: Unauthorized Access</h2>
+                        <p style="font-size: 0.8em;">A guest user attempting to read sensitive tables.</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+SELECT * FROM financial_records;
+                        </code></pre>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 85%;">
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>The log shows `guest_user` executing this query.</li>
+                                <li>Guest accounts should not have access to the `financial_records` table.</li>
+                                <li><strong>Result:</strong> Access was denied, but it shows malicious intent.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>Deep Dive 6: Mass Deletion</h2>
+                        <p style="font-size: 0.8em;">Unauthorized deletion of the entire orders table.</p>
+                        <pre><code data-trim data-noescape class="language-sql">
+DELETE FROM orders;
+                        </code></pre>
+                        <div style="font-size: 0.65em; text-align: left; margin: 0 auto; width: 85%;">
+                            <p><strong>Analysis:</strong></p>
+                            <ul>
+                                <li>Executed by `reporting_service`.</li>
+                                <li>A reporting service should only have read access, never delete permissions.</li>
+                                <li><strong>Result:</strong> Potential total loss of order history data.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Slide 8: Remediation -->
+                <section>
+                    <h2>Remediation</h2>
+                    <ul style="line-height: 1.6; font-size: 0.8em;">
+                        <li><strong>1. Parameterized Queries:</strong> Stop SQL injection by separating code from data.</li>
+                        <li><strong>2. Least Privilege:</strong> Restrict service accounts to minimum required access.</li>
+                        <li><strong>3. Network Controls:</strong> Block IP <code>203.0.113.5</code> at the firewall.</li>
+                        <li><strong>4. Real-time Monitoring:</strong> Deploy automated log analysis.</li>
+                    </ul>
+                </section>
+
+                <!-- Slide 9: Conclusion -->
+                <section>
+                    <h2>Conclusion</h2>
+                    <ul style="line-height: 1.8;">
+                        <li>Logs are the black box of security.</li>
+                        <li>Proactive analysis can stop breaches before they spread.</li>
+                        <li>Always monitor for anomalous access!</li>
+                    </ul>
+                    <h3 style="margin-top: 40px; color: #38bdf8;">Thank You!</h3>
+                </section>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/highlight/highlight.min.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+                transition: 'slide',
+				plugins: [ RevealHighlight ]
+			});
+		</script>
+	</body>
+</html>
