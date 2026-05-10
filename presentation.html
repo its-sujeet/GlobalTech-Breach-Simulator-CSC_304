@@ -23,9 +23,11 @@
 				<section>
                     <h2>GlobalTech Solutions</h2>
                     <h3 style="color: #4ade80;">Vulnerability Assessment</h3>
-                    <p>
-                        <small>SQL Injection Lab & Data Exfiltration</small>
-                    </p>
+                    <div style="margin-top: 50px; font-size: 0.8em;">
+                        <p><strong>Presented by:</strong> Sujeet Kumar</p>
+                        <p><strong>Roll No:</strong> 16 | <strong>Section:</strong> 423CS</p>
+                        <p><strong>Reg Number:</strong> 12303890</p>
+                    </div>
                 </section>
 
                 <!-- Slide 2 -->
@@ -61,6 +63,27 @@
                             <li class="fragment"><code>/api/register</code> <span style="color: #f43f5e;">(Unrestricted Account Creation)</span></li>
                             <li class="fragment"><code>/api/blind-check</code> <span style="color: #f43f5e;">(Blind Inference)</span></li>
                         </ul>
+                        <p style="font-size: 0.6em; color: #64748b; margin-top: 20px;">↓ Scroll down for more details on specific attacks ↓</p>
+                    </section>
+                    
+                    <section>
+                        <h3>Auth Bypass Detail</h3>
+                        <p>Endpoint: <code>/api/login</code></p>
+                        <pre><code data-trim data-noescape class="language-javascript">
+const query = `SELECT * FROM users 
+               WHERE username = '${username}' AND password = '${password}'`;
+                        </code></pre>
+                        <p style="font-size: 0.8em;">By injecting <code>' OR 1=1 --</code> in the username, the query becomes always true, bypassing authentication.</p>
+                    </section>
+
+                    <section>
+                        <h3>Privilege Escalation Detail</h3>
+                        <p>Endpoint: <code>/api/profile/update</code></p>
+                        <pre><code data-trim data-noescape class="language-javascript">
+const query = `UPDATE users SET username = '${displayName}', email = '${email}' 
+               WHERE username = '${username}'`;
+                        </code></pre>
+                        <p style="font-size: 0.8em;">An attacker can inject <code>hacker', role='admin</code> into the display name to elevate their privileges.</p>
                     </section>
                 </section>
 
