@@ -81,7 +81,9 @@ const query = `SELECT * FROM users
                         <h3>Privilege Escalation Detail</h3>
                         <p>Endpoint: <code>/api/profile/update</code></p>
                         <pre><code data-trim data-noescape class="language-javascript">
-const query = `UPDATE users SET username = '${displayName}', email = '${email}' 
+const query = `UPDATE users 
+               SET username = '${displayName}', 
+                   email = '${email}' 
                WHERE username = '${username}'`;
                         </code></pre>
                         <p style="font-size: 0.8em;">An attacker can inject <code>hacker', role='admin</code> into the display name to elevate their privileges.</p>
@@ -94,7 +96,8 @@ const query = `UPDATE users SET username = '${displayName}', email = '${email}'
                     <p>Target: <code>/api/search</code></p>
                     <pre><code data-trim data-noescape class="language-javascript">
 // The Vulnerable Code
-const query = `SELECT id, username, role, email FROM users 
+const query = `SELECT id, username, role, email 
+               FROM users 
                WHERE username LIKE '%${searchTerm}%'`;
                     </code></pre>
                     <div class="fragment">
@@ -129,7 +132,8 @@ Vault ID | Owner ID | Secret Data
                     <p style="font-size: 0.8em;">To prevent SQL Injection, the application must use <strong>Parameterized Queries</strong>.</p>
                     <pre><code data-trim data-noescape class="language-javascript">
 // Secure Implementation
-const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+const query = `SELECT * FROM users 
+               WHERE username = ? AND password = ?`;
 db.get(query, [username, password], (err, row) => { ... });
                     </code></pre>
                     <p class="fragment" style="color: #4ade80; font-size: 0.7em;">
